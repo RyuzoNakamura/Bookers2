@@ -1,0 +1,53 @@
+<div>
+    <%= flash[:notice] %>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <h2>User info</h2>
+            <%= image_tag @book.user.get_image(100,100) %>
+            <table class="table">
+                <tbody>
+                    <tr></tr>
+                    <tr>
+                        <th>name</th>
+                        <th><%= @book.user.name %></th>
+                    </tr>
+                    <tr>
+                    <th>introduction</th>
+                    <th><%= @book.user.introduction %></th>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+            <%= link_to(edit_user_path(@book.user_id), class: "btn btn-outline-secondary btn-block") do %>
+              <i class="fas fa-user-cog"></i>
+            <% end %>
+            </div>
+            <%= render 'books/list', book: @book %>
+            </div>
+            <div class="col-md-8 offset-md-1">
+              <h2>Book detail</h2>
+              <table class="table">
+                <tbody>
+                    <tr>
+                        <td>
+                        <%= link_to user_path(@book.user_id) do %>
+                            <%= image_tag @book.user.get_image(100,100) %><br>
+                            <%= @book.user.name %>
+                        <% end %>
+                        </td>
+                        <td><%= link_to "#{@book.title}", book_path(@book) %></td>
+                        <td><%= @book.body %></td>
+
+                        <% if current_user == @book.user %>
+                            <td><%= link_to "Edit", edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
+                            <td><%= link_to "Destroy", book_path(@book), class: "btn btn-sm btn-danger", method: :delete, data: { confirm: "本当に消しますか？" }  %></td>
+                        <% end %>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
